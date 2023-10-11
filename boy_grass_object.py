@@ -10,7 +10,7 @@ class Grass:
     def draw(self): #self-생성된 객체를 가리키는 더미 변수. 멤버 함수는 항상 첫 번째 인자가 self 여야 함
         self.image.draw(400,30)
 
-    def update(self):
+    def update(self):   #기능이 있는 함수는 아니지만 더미 함수를 넣어서 코드를 통일 할 수 있기 때문에 관리 차원에서 유용하다
         pass
 
 class Boy:
@@ -40,23 +40,26 @@ def reset_world():
     global running
     global grass
     global team
+    global world
 
     running = True
+    world = []
+
     grass = Grass()
+    world.append(grass)
+
     team = [Boy() for i in range(10)]
+    world += team
 
 def update_world():
-    grass.update()
-    for boy in team:
-        boy.update()
-    pass
+    for o in world:
+        o.update()
 
 
 def render_world():
     clear_canvas()
-    grass.draw()
-    for boy in team:
-        boy.draw()
+    for o in world:
+        o.draw()
     update_canvas()
 
 
